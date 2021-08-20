@@ -39,17 +39,18 @@ public class GithubUserServiceTest {
 
         when(githubUserClient.getUserByLogin(anyString())).thenReturn(user);
 
-        Assertions.assertEquals(3, githubUserService.getUserByLogin("").getCalculations());
+        Assertions.assertEquals(3, githubUserService.getUserByLogin("sample_user").getCalculations());
     }
 
     @Test
     void correctNumberWithFraction() {
+
         final User user = new User();
 
         user.setFollowers(2);
 
         when(githubUserClient.getUserByLogin(anyString())).thenReturn(user);
 
-        Assertions.assertEquals(1.5, githubUserService.getUserByLogin("").getCalculations());
+        Assertions.assertEquals(1.5, githubUserService.getUserByLogin("sample_user").getCalculations());
     }
 }

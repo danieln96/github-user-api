@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
@@ -36,7 +37,7 @@ public class GithubUserClient {
 
             return userResponseEntity.getBody();
 
-        } catch (final RestClientException exc) {
+        } catch (final HttpClientErrorException exc) {
             log.error("Exception for login [{}]", login, exc);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("User with login [%s] not found", login));
         }

@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -28,7 +28,7 @@ public class GithubUserClientTest {
     @Test
     void restTemplateException() {
 
-        when(restTemplate.getForEntity(anyString(), any())).thenThrow(RestClientException.class);
+        when(restTemplate.getForEntity(anyString(), any())).thenThrow(HttpClientErrorException.class);
 
         Assertions.assertThrows(ResponseStatusException.class, () -> githubUserClient.getUserByLogin("user"));
 

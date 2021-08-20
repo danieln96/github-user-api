@@ -10,13 +10,20 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GithubUserService {
 
-    private final GithubUserClient client;
+    private final GithubUserClient githubUserClient;
+    private final QueryCounterService queryCounterService;
 
     public UserDto getUserByLogin(final String login) {
 
-        final User user = client.getUserByLogin(login);
+        final User user = githubUserClient.getUserByLogin(login);
 
-        return transformUser(user);
+        final UserDto userDto = transformUser(user);
+
+        if (userDto != null) {
+            queryCounterService.increaceTheQueryCounterForLogin(login);
+        }
+
+        return userDto;
     }
 
     private UserDto transformUser(final User user) {
